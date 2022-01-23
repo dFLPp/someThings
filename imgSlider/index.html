@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *, *::after, *::before{
+            margin: 0;
+            padding: 0;
+            top: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --pr-cl: #E53D00;
+            --sc-cl: #FFE900;
+            --dt-cl: #FCFFF7;
+        }
+
+        body{
+    
+            background-color: var(--pr-cl);
+            height: 100vh;
+        }
+        #container{
+            width: 800px;
+            height: 600px;
+            background-color: var(--sc-cl);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            padding: 18px;
+        }
+        #theme{
+            width: 120px;
+            height: 45px;
+            text-align: center;
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            border-radius: 12px;
+            border: none;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 14px;
+            background-color: #FCFFF7;
+            outline: none;
+            cursor: pointer;
+            transition: all ease-in .2s;
+        }
+        #theme:hover, #ops:hover{
+            background-color: black;
+            color: #FCFFF7;
+        }
+        #ops{
+            width: 120px;
+            height: 45px;
+            text-align: center;
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            border-radius: 12px;
+            border: none;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 14px;
+            background-color: #FCFFF7;
+            outline: none;
+            cursor: pointer;
+            display: none;
+            transition: all ease-in .2s;
+        }
+
+        .img-cont{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        } 
+        img{
+            position: relative;
+            width: 760px;
+            max-width: 1100px;
+            min-width: 760px;
+            height: auto;
+            display: none;
+            cursor: pointer;
+            box-shadow: 0px 2px 16px rgb(0, 0, 0);
+            
+        }
+        .active{
+            display: block;
+        }
+        .img-guider{
+            width: 100%;
+            margin: -4px auto 2px auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+        .img-guider button{
+            width: 20px;
+            height: 20px;
+            outline: none;
+            cursor: pointer;
+            padding: 8px;
+            border: none;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.336);
+            border-radius: 50%;
+            background-color: var(--dt-cl);
+        }
+        .img-guider button:nth-child(1){
+            background-color: var(--pr-cl);
+        }
+        #prev,#next{
+            height: 48px;
+            width: 48px;
+            position: absolute;
+            background-color: var(--pr-cl);
+            color: var(--dt-cl);
+            border: none;
+            border-radius: 50%;
+            font-size: 28px;
+            font-weight: lighter;
+            top: 88%;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.336);
+            cursor: pointer;
+        }
+        #prev{
+            right: 52%;
+            transition: all ease-in .2s;
+        }
+        #next{
+            left: 52%;
+            transition: all ease-in .2s;
+        }
+        #prev:hover, #next:hover{
+            filter: saturate(200%);
+        }
+
+        #zoomOut{
+            height: 48px;
+            width: 48px;
+            border-radius: 50%;
+            background-color: var(--dt-cl);
+            border: none;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.336);
+            cursor: pointer;
+            font-size: 30px;
+            font-weight: 300;
+            position: absolute;
+            left: 90%;
+            top: 5%;
+            display: none;
+        }
+        #zoomOut:hover{
+            color: var(--dt-cl);
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <div class="img-cont" onclick="zoomIn()">
+            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80" id="item1" class="active">
+            <img src="https://www.embroideryfx.com.au/wp-content/uploads/2018/01/600x400.png" id="item2">
+            <img src="https://www.dicasdeviagem.com/wp-content/uploads/2018/11/the-wave-1.jpg.webp" id="item3">
+            <img src="https://www.queroviajarmais.com/wp-content/uploads/2020/08/da-nang-bay.jpg" id="item4">
+            <img src="https://www.queroviajarmais.com/wp-content/uploads/2020/08/lago-louise.jpg" id="item5">
+        </div>
+
+        <button id="prev"> &lt; </button>
+        <button id="next"> &gt; </button>
+        
+        <div class="img-guider">
+            <button onclick="dot(1)"></button>
+            <button onclick="dot(2)"></button>
+            <button onclick="dot(3)"></button>
+            <button onclick="dot(4)"></button>
+            <button onclick="dot(5)"></button>
+        </div>
+    </div>
+
+    <button onclick="zoomOut()" id="zoomOut">X</button>
+    
+    <button id="theme">Themes</button>
+    <select id="ops">
+        <option value="blaze">blaze</option>
+        <option value="ocean">ocean</option>
+    </select>
+
+    <script>
+        ////////////////////////////////////// Theme "feature"//////////////////////////////////////
+        const btt = document.getElementById("theme");
+        const menuOps = document.getElementById("ops");
+        const selector = document.querySelector("select");
+        let rootCSS = document.querySelector(":root");
+
+        function showOps(){
+            menuOps.style["display"]="block";
+        }
+        btt.addEventListener("click", showOps)
+        
+        function bgCh(){
+            if(selector.value === "ocean"){
+                rootCSS.style.setProperty('--pr-cl', '#21A0A0');
+                rootCSS.style.setProperty('--sc-cl', '#046865');
+                menuOps.style["display"]="none";
+            }
+            else{
+                rootCSS.style.setProperty('--pr-cl', '#E53D00');
+                rootCSS.style.setProperty('--sc-cl', '#FFE900');
+                menuOps.style["display"]="none";
+            }
+        }
+        selector.addEventListener("change", bgCh);
+
+        ////////////////////////////////////// Image Flow //////////////////////////////////////
+        const dots = document.querySelectorAll(".img-guider button");
+        const images = document.querySelectorAll(".img-cont img");
+        const nextItem = document.getElementById("next");
+        const prevItem = document.getElementById("prev");
+        let i = 0;
+        let j = 5;
+        
+        function next(){
+            document.getElementById("item" + (i+1)).classList.remove("active");
+            i = ( j + i + 1) % j;
+            document.getElementById("item" + (i+1)).classList.add("active");
+            indicator(i+1);
+        }
+        function prev(){
+            document.getElementById("item" + (i+1)).classList.remove("active");
+            i = ( j + i - 1) % j;
+            document.getElementById("item" + (i+1)).classList.add("active");
+            indicator(i+1);
+        }
+        function indicator(num){
+            dots.forEach(function(dot){
+                dot.style.backgroundColor = "#FCFFF7";
+            });
+            document.querySelector(".img-guider button:nth-child(" + num + ")").style.backgroundColor = "var(--pr-cl)";
+        }
+        function dot(index){
+            images.forEach(function(image){
+                image.classList.remove("active");
+            });
+            document.getElementById("item" + index).classList.add("active");
+            i = index - 1;
+            indicator(index);
+        }
+
+        nextItem.addEventListener("click", next);
+        prevItem.addEventListener("click", prev);
+
+
+        ////////////////////////////////////// Zoom feature //////////////////////////////////////
+        const close = document.getElementById("zoomOut");
+        
+        function zoomIn(){
+            let GFG = document.getElementById("item" + (i+1))
+            let currWidth = GFG.clientWidth;
+            
+            GFG.style.width = (currWidth + 400) + "px";
+            document.body.style["background-color"] = "#2b2a2a";
+            
+            btt.style["display"]="none";
+            nextItem.style["display"]="none";
+            prevItem.style["display"]="none";
+            close.style["display"]="block";
+        }
+        function zoomOut(){
+            let GFG = document.getElementById("item" + (i+1))
+            let currWidth = GFG.clientWidth;
+            
+            GFG.style.width = (currWidth - 400) + "px";
+            document.body.style["background-color"] = "var(--pr-cl)";
+
+            btt.style["display"]="block";
+            nextItem.style["display"]="block";
+            prevItem.style["display"]="block";
+            close.style["display"]="none";
+        }
+
+    </script>
+</body>
+</html>
