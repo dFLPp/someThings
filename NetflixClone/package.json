@@ -1,0 +1,13 @@
+{
+  "name": "netflix-clone",
+  "description": "",
+  "version": "1.0.0",
+  "scripts": {
+    "build-css": "tailwindcss build -i ./src/style.css -o ./dist/style.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.0.23"
+  }
+}
+
+
